@@ -64,8 +64,8 @@ export function openSheet(html, { wide = false, label = "Dialog", onClose } = {}
   const root = document.getElementById("sheet-root");
   root.innerHTML = `<div class="scrim" data-scrim><div class="sheet${wide ? " wide" : ""}" role="dialog" aria-modal="true" aria-label="${esc(label)}">${html}</div></div>`;
   root._onClose = onClose;
-  const first = root.querySelector("[autofocus]") || root.querySelector("input,select,button");
-  setTimeout(() => first && first.focus({ preventScroll: true }), 30);
+  const first = root.querySelector("[autofocus]") || root.querySelector("input,select,textarea") || root.querySelector("button");
+  if (!app.photo) setTimeout(() => first && first.focus({ preventScroll: true }), 30);
 }
 export function updateSheet(html) {
   const sh = document.querySelector("#sheet-root .sheet");

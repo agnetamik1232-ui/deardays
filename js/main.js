@@ -22,7 +22,7 @@ app.start = () => { app.renderFn = renderApp; applyLook(); renderApp(); if (app.
 
 // Demo only, for listing photos and videos:
 //   ?demo&photo  &look=matcha  &dark=on  &big  &view=week|month|year|goals|settings  &day=+1|-3|2026-11-20  &month=-1  &now=14:20
-//   &open=task:<text> | block:<text> | goal:<name> | goal-new | card | cardonly | carry
+//   &open=task:<text> | rep:<text> | block:<text> | goal:<name> | goal-new | card | cardonly | carry
 function demoExtras() {
   const look = params.get("look"), view = params.get("view"), open = params.get("open") || "";
   if (look) app.S.profile.look = look;
@@ -37,6 +37,7 @@ function demoExtras() {
   const S = app.S, low = s => String(s).toLowerCase();
   if (open.startsWith("task:")) { const t = S.tasks.find(x => low(x.text) === low(open.slice(5))); if (t) openSheet(taskSheet(t.id), { label: "Task" }); }
   if (open.startsWith("block:")) { const b = S.blocks.find(x => x.date === app.today && low(x.text) === low(open.slice(6))); if (b) fire("block-edit", { id: b.id }); }
+  if (open.startsWith("rep:")) { const r = S.repeats.find(x => low(x.text) === low(open.slice(4))); if (r) openSheet(taskSheet(`r:${r.id}:${app.today}`), { label: "Repeating task" }); }
   if (open.startsWith("goal:")) { const g = S.goals.find(x => low(x.name) === low(open.slice(5))); if (g) openSheet(goalSheet(g.id), { label: "Goal" }); }
   if (open === "goal-new") fire("goal-new");
   if (open === "carry") fire("carry-pick");

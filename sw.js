@@ -1,5 +1,5 @@
 // Dear Days — keeps the app working offline, and quietly picks up updates in the background.
-const VERSION = "deardays-1.0.0";
+const VERSION = "deardays-1.0.1";
 const FONTS = "deardays-fonts";
 const FILES = [
   "./", "index.html", "manifest.webmanifest", "css/looks.css", "css/app.css",
